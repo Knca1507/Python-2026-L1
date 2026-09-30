@@ -23,20 +23,20 @@ for i in range(number_courses):
 
     courses.append(course)
 
+#Marks
 for course in courses:
     print("\nEnter marks for course:", course["name"])
+
+    marks[course["id"]] = {}
 
     for student in students:
         mark = float(input(
             "Enter mark for " + student["name"] + ": "
         ))
 
-        if course["id"] not in marks:
-            marks[course["id"]] = {}
-
         marks[course["id"]][student["id"]] = mark
 
-#lisr function
+#list function
 def list_courses():
     print("\n COURSE LIST ")
 
@@ -55,20 +55,28 @@ def list_student():
 
 
 def show_marks():
-     course_id = input("\nEnter course ID: ")
-     for course in courses:
-        print("\nCourse:", course["name"])
-    
-     if course_id not in marks:
-            print("Course not found.")
+    course_id = input("\nEnter course ID: ")
+
+    for course in courses:
+        if course["id"] == course_id:
+            print("\nCourse:", course["name"])
+
+            if course_id not in marks:
+                print("No marks have been entered for this course.")
+                return
+
+            print("\nSTUDENT MARKS")
+
+            for student in students:
+                print(
+                    "ID:", student["id"],
+                    "Name:", student["name"],
+                    "Mark:", marks[course_id][student["id"]]
+                )
+
             return
 
-     if course_id in marks:
-        print("\n STUDENT MARKS ")
-
-        for student in students:
-            print(  "ID:", student["id"]," Name:", student["name"]," Mark:", marks[course_id][student["id"]]
-        )
+    print("Course not found.")
 
 list_courses()    
 list_student()   
