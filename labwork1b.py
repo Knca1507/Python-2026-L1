@@ -24,17 +24,28 @@ for i in range(number_courses):
     courses.append(course)
 
 #Marks
-for course in courses:
-    print("\nEnter marks for course:", course["name"])
+while True:
+    course_id = input("\nEnter course ID to input marks (enter '0' when finish): ")
 
-    marks[course["id"]] = {}
+    if course_id == "0":
+        break
 
-    for student in students:
-        mark = float(input(
-            "Enter mark for " + student["name"] + ": "
-        ))
+    for course in courses:
+        if course["id"] == course_id:
+            print("\nEnter marks for course:", course["name"])
 
-        marks[course["id"]][student["id"]] = mark
+            marks[course_id] = {}
+
+            for student in students:
+                mark = float(input(
+                    "Enter mark for " + student["name"] + ": "
+                ))
+
+                marks[course_id][student["id"]] = mark
+
+            break
+    else:
+        print("Course not found.")
 
 #list function
 def list_courses():
